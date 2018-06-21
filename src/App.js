@@ -7,16 +7,11 @@ import './App.css';
 
 class BooksApp extends Component {
   state = {
-    books: [],
-    searchResults: []
+    books: []
   };
 
   componentDidMount = () => {
     this.getAllBooks();
-  };
-
-  clearSearchResults = () => {
-    this.state.searchResults.length && this.setState({ searchResults: [] });
   };
 
   getAllBooks = () => {
@@ -25,16 +20,8 @@ class BooksApp extends Component {
     });
   };
 
-  changeShelf = (id, shelf) => {
-    return BooksAPI.update({ id }, shelf);
-  };
-
-  searchBooks = query => {
-    return BooksAPI.search(query).then(books => {
-      books.error
-        ? this.setState({ searchResults: [] })
-        : this.setState({ searchResults: books });
-    });
+  getShelfMap = () => {
+    return new Map(this.state.books.map(book => [book.id, book.shelf]));
   };
 
   render() {
@@ -46,7 +33,6 @@ class BooksApp extends Component {
           render={() => (
             <ListBooks
               books={this.state.books}
-              onChangeShelf={this.changeShelf}
               onShelfDidChange={this.getAllBooks}
             />
           )}
@@ -55,15 +41,8 @@ class BooksApp extends Component {
           path="/search"
           render={() => (
             <SearchBooks
-              books={this.state.books}
-              results={this.state.searchResults}
-              onSubmit={this.searchBooks}
-              onChangeShelf={this.changeShelf}
-              onShelfDidChange={query => {
-                this.searchBooks(query);
-                this.getAllBooks();
-              }}
-              onWillUnmout={this.clearSearchResults}
+              shelfMap={this.getShelfMap()}
+              onShelfDidChange={this.getAllBooks}
             />
           )}
         />

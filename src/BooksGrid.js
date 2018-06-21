@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { update } from './BooksAPI';
 
 class BooksGrid extends Component {
   handleChangeShelf = event => {
     const t = event.target;
-    const { onChangeShelf, onShelfDidChange } = this.props;
-    onChangeShelf(t.dataset.id, t.value).then(onShelfDidChange);
+    update({ id: t.dataset.id }, t.value).then(this.props.onShelfDidChange);
   };
 
   render() {

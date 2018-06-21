@@ -3,17 +3,6 @@ import { Link } from 'react-router-dom';
 import BooksGrid from './BooksGrid';
 
 class ListBooks extends Component {
-  componentWillMount = () => {
-    console.log('ListBooks will mount');
-  };
-
-  componentWillUnmount = () => {
-    console.log('ListBooks will unmount');
-  };
-
-  componentDidUpdate() {
-    console.log('ListBooks did update');
-  }
 
   shelves = [
     {
@@ -46,7 +35,6 @@ class ListBooks extends Component {
                     books={this.props.books.filter(
                       book => book.shelf === shelf.type
                     )}
-                    onChangeShelf={this.props.onChangeShelf}
                     onShelfDidChange={this.props.onShelfDidChange}
                   />
                 </div>
