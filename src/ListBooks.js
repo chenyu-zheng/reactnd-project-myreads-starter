@@ -1,56 +1,63 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import BooksGrid from './BooksGrid';
 
 class ListBooks extends Component {
-  handleChangeShelf = event => {
-    const t = event.target;
-    const { onChangeShelf, onShelfDidChange } = this.props;
-
-    onChangeShelf(t.dataset.id, t.value).then(onShelfDidChange);
+  componentWillMount = () => {
+    console.log('ListBooks will mount');
   };
+
+  componentWillUnmount = () => {
+    console.log('ListBooks will unmount');
+  };
+
+  componentDidUpdate() {
+    console.log('ListBooks did update');
+  }
+
+  shelves = [
+    {
+      title: 'Currently Reading',
+      type: 'currentlyReading'
+    },
+    {
+      title: 'Want to Read',
+      type: 'wantToRead'
+    },
+    {
+      title: 'Read',
+      type: 'read'
+    }
+  ];
+
   render() {
-    const { books } = this.props;
     return (
-      <ol className="books-grid">
-        {books.map(book => (
-          <li key={book.id}>
-            <div className="book">
-              <div className="book-top">
-                <div
-                  className="book-cover"
-                  style={{
-                    width: 128,
-                    height: 193,
-                    backgroundImage: `url(${
-                      book.imageLinks ? book.imageLinks.thumbnail : 'none'
-                    })`
-                  }}
-                />
-                <div className="book-shelf-changer">
-                  <select
-                    value={book.shelf ? book.shelf : 'none'}
-                    data-id={book.id}
-                    onChange={this.handleChangeShelf}
-                  >
-                    <option value="move" disabled>
-                      Move to...
-                    </option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none">None</option>
-                  </select>
+      <div className="list-books">
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
+        <div className="list-books-content">
+          <ol>
+            {this.shelves.map(shelf => (
+              <li className="bookshelf" key={shelf.type}>
+                <h2 className="bookshelf-title">{shelf.title}</h2>
+                <div className="bookshelf-books">
+                  <BooksGrid
+                    books={this.props.books.filter(
+                      book => book.shelf === shelf.type
+                    )}
+                    onChangeShelf={this.props.onChangeShelf}
+                    onShelfDidChange={this.props.onShelfDidChange}
+                  />
                 </div>
-              </div>
-              <div className="book-title">{book.title}</div>
-              {book.authors && (
-                <ol className="book-authors">
-                  {book.authors.map(author => <li key={author}>{author}</li>)}
-                </ol>
-              )}
-            </div>
-          </li>
-        ))}
-      </ol>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="open-search">
+          <Link to="/search">Add a book</Link>
+        </div>
+      </div>
     );
   }
 }

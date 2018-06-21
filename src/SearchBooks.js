@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ListBooks from './ListBooks';
+import BooksGrid from './BooksGrid';
 
 class SearchBooks extends Component {
   state = {
     input: ''
+  };
+
+  componentWillMount = () => {
+    console.log('SearchBooks will mount');
+    this.props.onWillUnmout();
+  };
+
+  componentWillUnmount = () => {
+    console.log('SearchBooks will unmount');
+  };
+
+  componentWillReceiveProps = () => {
+    // console.log('will receive props');
   };
 
   handleChange = event => {
@@ -13,6 +26,7 @@ class SearchBooks extends Component {
     });
   };
 
+  // TODO: show search results without submit
   handleSubmit = event => {
     event.preventDefault();
     const query = event.target.query.value.trim();
@@ -55,7 +69,7 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ListBooks
+          <BooksGrid
             books={this.setBookStates()}
             onChangeShelf={this.props.onChangeShelf}
             onShelfDidChange={() =>
