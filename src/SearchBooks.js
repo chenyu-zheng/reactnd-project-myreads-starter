@@ -11,15 +11,16 @@ class SearchBooks extends Component {
 
   searchBooks = query => {
     const queryStr = query.trim();
-    queryStr &&
-      search(queryStr).then(books =>
-        this.setState({
-          searchResults: books.error ? [] : books
-        })
-      );
+    queryStr
+      ? search(queryStr).then(books =>
+          this.setState({
+            searchResults: books.error ? [] : books
+          })
+        )
+      : this.setState({ searchResults: [] });
   };
 
-  handleInputChange = event => {
+  handleChangeInput = event => {
     this.setState({
       input: event.target.value
     });
@@ -46,7 +47,7 @@ class SearchBooks extends Component {
               name="query"
               value={this.state.input}
               placeholder="Search by title or author"
-              onChange={this.handleInputChange}
+              onChange={this.handleChangeInput}
             />
           </div>
         </div>
