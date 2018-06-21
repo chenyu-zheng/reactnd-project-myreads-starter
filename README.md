@@ -1,10 +1,11 @@
 # MyReads Project
-![Demo](./demo.gif)
+[![Made with](https://img.shields.io/badge/Made%20with-React-61dafb.svg)](https://reactjs.org/)
+
 This is a book management web page built with React. Users can search books and add to their shelves. Books can be categorized into 3 different shelves: `Currently Reading`, `Want to Read`, and `Read`.
 
 ## Installation & Launching
 
-You must have node.js installed, and run the following commands:
+You must have [node.js](https://nodejs.org) installed, and run the following commands:
 - install all project dependencies with `npm install`
 - start the development server with `npm start`
 
@@ -33,7 +34,9 @@ You must have node.js installed, and run the following commands:
     ├── index.css # Global styles. You probably won't need to change anything here.
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```
-## Usage
+
+## Usage 
+![Demo](./demo.gif)
 
 ## Author
 Chenyu Zheng
