@@ -184,3 +184,16 @@ ul {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* icons for shelf changer */
+.currently-reading {
+  background-image: url('./icons/baseline-hourglass_empty-24px.svg');
+}
+
+.want-to-read {
+  background-image: url('./icons/baseline-favorite_border-24px.svg');
+}
+
+.read {
+  background-image: url('./icons/baseline-done-24px.svg');
+}

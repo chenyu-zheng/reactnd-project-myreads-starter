@@ -7,25 +7,35 @@ class BooksGrid extends Component {
     update({ id: t.dataset.id }, t.value).then(this.props.onShelfDidChange);
   };
 
+  camelToKebab = str => {
+    return str.replace(/([A-Z])/g, letter => `-${letter.toLowerCase()}`);
+  };
+
   render() {
-    const { books } = this.props;
     return (
       <ol className="books-grid">
-        {books.map(book => (
+        {this.props.books.map(book => (
           <li key={book.id}>
             <div className="book">
               <div className="book-top">
                 <div
                   className="book-cover"
+                  // some books don't have an image
                   style={{
                     width: 128,
                     height: 193,
-                    backgroundImage: `url(${
-                      book.imageLinks ? book.imageLinks.thumbnail : 'none'
-                    })`
+                    backgroundImage: book.imageLinks
+                      ? `url(${book.imageLinks.thumbnail})`
+                      : 'none'
                   }}
                 />
-                <div className="book-shelf-changer">
+                <div
+                  className={
+                    // gives a shelf changer an icon according to the book's shelf
+                    'book-shelf-changer' +
+                    (book.shelf ? ` ${this.camelToKebab(book.shelf)}` : '')
+                  }
+                >
                   <select
                     value={book.shelf ? book.shelf : 'none'}
                     data-id={book.id}
@@ -42,6 +52,7 @@ class BooksGrid extends Component {
                 </div>
               </div>
               <div className="book-title">{book.title}</div>
+              {/* a book could have multiple or no authors */}
               {book.authors && (
                 <ol className="book-authors">
                   {book.authors.map(author => <li key={author}>{author}</li>)}

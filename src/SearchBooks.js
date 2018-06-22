@@ -6,15 +6,18 @@ import BooksGrid from './BooksGrid';
 class SearchBooks extends Component {
   state = {
     input: '',
-    searchResults: []
+    searchResults: [],
+    error: null
   };
 
   searchBooks = query => {
     const queryStr = query.trim();
+    // If there's no maches, the search API will return an object, which has an 'error' property, instead of an array.
     queryStr
       ? search(queryStr).then(books =>
           this.setState({
-            searchResults: books.error ? [] : books
+            searchResults: books.error ? [] : books,
+            error: books.error || null
           })
         )
       : this.setState({ searchResults: [] });
@@ -52,13 +55,19 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BooksGrid
-            books={this.setBookStates()}
-            onShelfDidChange={() => {
-              this.searchBooks(this.state.input);
-              this.props.onShelfDidChange();
-            }}
-          />
+          {this.state.error ? (
+            <p className="search-error-message">
+              No maches. Please try some different terms.
+            </p>
+          ) : (
+            <BooksGrid
+              books={this.setBookStates()}
+              onShelfDidChange={() => {
+                this.searchBooks(this.state.input);
+                this.props.onShelfDidChange();
+              }}
+            />
+          )}
         </div>
       </div>
     );

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import BooksGrid from './BooksGrid';
 
 class ListBooks extends Component {
-
   shelves = [
     {
       title: 'Currently Reading',

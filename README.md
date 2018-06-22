@@ -14,6 +14,7 @@ You must have [node.js](https://nodejs.org) installed, and run the following com
 ```bash
 ├── CONTRIBUTING.md
 ├── README.md - This file.
+├── demo.gif # An animation that demonstrates the use of this web page.
 ├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
 ├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
 ├── public
@@ -23,10 +24,10 @@ You must have [node.js](https://nodejs.org) installed, and run the following com
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app.
     ├── Listbooks.js # Renders a page of users' book shelves.
-    ├── SearchBooks.js # Renders a page for searching books, and adding to users' shelves.
+    ├── SearchBooks.js # Renders a page for searching books and adding to users' shelves.
     ├── BooksGrid.js # Renders a list of books.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend.
     ├── icons # Helpful images for your app. Use at your discretion.
     │   ├── add.svg
     │   ├── arrow-back.svg
